@@ -4,8 +4,11 @@ MAINTAINER Maurice Kaag <mkaag@me.com>
 # -----------------------------------------------------------------------------
 # Environment variables
 # -----------------------------------------------------------------------------
-ENV ANDROID_HOME /opt/android-sdk-linux
-ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/tools
+ENV \
+  IONIC_VERSION=1.7.12 \
+  CORDOVA_VERSION=5.4.1 \
+  ANDROID_HOME=/opt/android-sdk-linux \
+  PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/tools
 RUN echo ANDROID_HOME="${ANDROID_HOME}" >> /etc/environment
 
 # -----------------------------------------------------------------------------
@@ -38,11 +41,13 @@ RUN \
 # -----------------------------------------------------------------------------
 # Install
 # -----------------------------------------------------------------------------
-RUN apt-get update -qqy &&  \
-    apt-get install -y npm && \
-    ln -s /usr/bin/nodejs /usr/local/bin/node && \
-    npm install -g cordova ionic && \
-    ionic start myApp sidemenu
+RUN \
+  apt-get update -qqy &&  \
+  apt-get install -y npm && \
+  ln -s /usr/bin/nodejs /usr/local/bin/node && \
+  npm install -g cordova@"$CORDOVA_VERSION" ionic@"$IONIC_VERSION" && \
+  npm cache clean && \
+  ionic start myApp sidemenu
 
 WORKDIR /opt
 RUN \
