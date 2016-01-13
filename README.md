@@ -2,6 +2,7 @@ docker-ionic
 ============
 
 [![Docker Hub](https://img.shields.io/badge/docker-mkaag%2Fionic-008bb8.svg)](https://registry.hub.docker.com/u/mkaag/ionic/)
+[![](https://badge.imagelayers.io/mkaag/ionic:latest.svg)](https://imagelayers.io/?images=mkaag/ionic:latest 'Get your own badge on imagelayers.io')
 
 This repository contains the **Dockerfile** and the configuration files to build the [Ionic framework](http://ionicframework.com) for [Docker](https://www.docker.com/).
 
