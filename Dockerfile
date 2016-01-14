@@ -4,11 +4,10 @@ MAINTAINER Maurice Kaag <mkaag@me.com>
 # -----------------------------------------------------------------------------
 # Environment variables
 # -----------------------------------------------------------------------------
-ENV \
-  IONIC_VERSION=1.7.12 \
-  CORDOVA_VERSION=5.4.1 \
-  ANDROID_HOME=/opt/android-sdk-linux \
-  PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/tools
+ENV IONIC_VERSION 1.7.12
+ENV CORDOVA_VERSION 5.4.1
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/tools
 RUN echo ANDROID_HOME="${ANDROID_HOME}" >> /etc/environment
 
 # -----------------------------------------------------------------------------
