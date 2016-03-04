@@ -4,8 +4,8 @@ MAINTAINER Maurice Kaag <mkaag@me.com>
 # -----------------------------------------------------------------------------
 # Environment variables
 # -----------------------------------------------------------------------------
-ENV IONIC_VERSION 1.7.12
-ENV CORDOVA_VERSION 5.4.1
+ENV IONIC_VERSION 1.7.14
+ENV CORDOVA_VERSION 6.0.0
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/tools
 RUN echo ANDROID_HOME="${ANDROID_HOME}" >> /etc/environment
@@ -14,10 +14,10 @@ RUN echo ANDROID_HOME="${ANDROID_HOME}" >> /etc/environment
 # Pre-install
 # -----------------------------------------------------------------------------
 RUN \
-  apt-get update -qqy && \
-  dpkg --add-architecture i386 && \
-  apt-get update -qqy && \
-  apt-get install -qqy \
+  apt-get update -qqy \
+  && dpkg --add-architecture i386 \
+  && apt-get update -qqy \
+  && apt-get install -qqy \
     python-software-properties \
     software-properties-common \
     expect \
@@ -32,27 +32,28 @@ RUN \
     kmod
 
 RUN \
-  add-apt-repository ppa:webupd8team/java -y && \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-  apt-get update -qqy && \
-  apt-get install -qqy oracle-java7-installer
+  add-apt-repository ppa:webupd8team/java -y \
+  && echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections \
+  && apt-get update -qqy \
+  && apt-get install -qqy oracle-java7-installer
 
 # -----------------------------------------------------------------------------
 # Install
 # -----------------------------------------------------------------------------
 RUN \
-  apt-get update -qqy &&  \
-  apt-get install -y npm && \
-  ln -s /usr/bin/nodejs /usr/local/bin/node && \
-  npm install -g cordova@"$CORDOVA_VERSION" ionic@"$IONIC_VERSION" && \
-  npm cache clean && \
-  ionic start myApp sidemenu
+  apt-get update -qqy \
+  &&  apt-get install -y npm \
+  && ln -s /usr/bin/nodejs /usr/local/bin/node \
+  && npm update -g \
+  && npm install -g cordova@"$CORDOVA_VERSION" ionic@"$IONIC_VERSION" \
+  && npm install -g bplist-parser minimatch inherits path-is-absolute inflight once \
+  && npm cache clean
 
 WORKDIR /opt
 RUN \
-  wget --output-document=android-sdk.tgz --quiet http://dl.google.com/android/android-sdk_r24.2-linux.tgz && \
-  tar xzf android-sdk.tgz && \
-  rm -f android-sdk.tgz
+  wget --output-document=android-sdk.tgz --quiet http://dl.google.com/android/android-sdk_r24.2-linux.tgz \
+  && tar xzf android-sdk.tgz \
+  && rm -f android-sdk.tgz
 
 # -----------------------------------------------------------------------------
 # Post-install
