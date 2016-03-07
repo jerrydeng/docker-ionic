@@ -61,7 +61,7 @@ RUN \
 ADD build/android-accept-licenses.sh /opt/tools/android-accept-licenses.sh
 RUN chmod +x /opt/tools/android-accept-licenses.sh
 
-RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --all --no-ui --filter platform-tools,build-tools-22.0.1,android-22,addon-google_apis_x86-google-22,extra-android-support,extra-android-m2repository,extra-google-m2repository,sys-img-x86-android-22"]
+RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --all --no-ui --filter platform-tools,build-tools-23.0.2,android-23,addon-google_apis_x86-google-23,extra-android-support,extra-android-m2repository,extra-google-m2repository,sys-img-x86-android-23"]
 
 WORKDIR /myApp
 EXPOSE 8100 35729
